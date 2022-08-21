@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Clinica</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="Specialty">Hello blank fragment</string>
+    <string-array name="searchSpecialty">
+        <item>specialization</item>
+        <item>General surgery</item>
+        <item>Ophthalmology (Eyes)</item>
+        <item>Phoniatrics</item>
+        <item>Physiotherapy and sport injuries</item>
+        <item>Dietitian</item>
+        <item>Diabetes</item>
+        <item>Pediatrics and Newborn</item>
+        <item>Bones</item>
+    </string-array>
+    <string-array name="locations">
+        <item>Cairo</item>
+        <item>Alexandria</item>
+        <item>Sinai</item>
+        <item>Aswan</item>
+        <item>Beheira</item>
+        <item>Beni Suef</item>
+        <item>Dakahlia</item>
+        <item>Damietta</item>
+        <item>Faiyum</item>
+        <item>Giza</item>
+        <item>Minya</item>
+        <item>Monufia</item>
+        <item>New Valley</item>
+    </string-array>
+    <string-array name="Start_hours">
+
+
+        <item>begining of worktime</item>
+
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+    </string-array>
+    <string-array name="End_hours">
+
+
+        <item>end of worktime</item>
+
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+    </string-array>
+    <string-array name="slots">
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+    </string-array>
+    <string name="title_activity_doctor_home">DoctorHome</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>
