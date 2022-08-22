@@ -1,5 +1,8 @@
 package com.example.clinica;
 
+import static java.lang.Integer.parseInt;
+
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,6 +16,7 @@ import androidx.annotation.RequiresApi;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.time.*;
@@ -27,7 +31,7 @@ public class PeopleDatabase extends SQLiteOpenHelper {
 
     private static String createDoctorsTable = "create table doctors(doctorEmail text primary key, username text not null," +
             "password text not null, age integer,gender text,booking_price integer,phone text, workplace_address text," +
-            "specialization text, city text,fees interger, starting_hours text, closing_hours text, slot_time text)";
+            "specialization text, city text,fees interger, starting_hours text, closing_hours text, slot_time text,MembershipType interger)";
 
     private static String createAppointmentsTable = "create table appointments(patient_email text not null references patients(patientEmail), " +
             "doctor_email text not null references doctors(doctorEmail), dateAndTime text,Status text, " +
@@ -94,9 +98,19 @@ public class PeopleDatabase extends SQLiteOpenHelper {
 
         return false;
     }
+    public int[] getAdminStatictics(){
+        AppDataBase=getReadableDatabase();
+        Cursor usersCur=AppDataBase.rawQuery("select patientEmail from patients",null);
+        Cursor doctorsCur=AppDataBase.rawQuery("select doctorEmail from doctors",null);
+
+        int[] activeNumber=new int[2];
+        activeNumber[0]=usersCur.getCount();
+        activeNumber[1]=doctorsCur.getCount();
+        return activeNumber;
+    }
 
     public void addDoctor(String username, String email, String password, String age, String phoneNo, String gender,
-                          int price, String start, String finish, int slot, String workplace, String specialty, String city) {
+                          int price, String start, String finish, int slot, String workplace, String specialty, String city,int MembershipType) {
         SQLiteDatabase db = this.getWritableDatabase();
         /*ContentValues newUser = new ContentValues();
         newUser.put("email", email);
@@ -118,6 +132,7 @@ public class PeopleDatabase extends SQLiteOpenHelper {
         newDoctor.put("workplace_address", workplace);
         newDoctor.put("specialization", specialty);
         newDoctor.put("city", city);
+        newDoctor.put("MembershipType",MembershipType);
         db.insert("doctors", null, newDoctor);
         Log.i("Doctor", "Record inserted");
         db.close();
@@ -194,5 +209,47 @@ public class PeopleDatabase extends SQLiteOpenHelper {
         }
         else
             return 0;
+    }
+    public ArrayList<Doctors> fetchDoctorsData(Cursor cursor){
+        ArrayList<Doctors> doctorsList = new ArrayList<>();
+        while(!cursor.isAfterLast()){
+            Doctors tmp = new Doctors();
+            tmp.setUserEmail(cursor.getString(0));
+            tmp.setName(cursor.getString(1));
+            tmp.setSpecialty(cursor.getString(8));
+            tmp.setLocation(cursor.getString(9));
+            tmp.setWorkingHoursStart(parseInt(cursor.getString(10)));
+            tmp.setWorkingHoursEnd(parseInt(cursor.getString(11)));
+            doctorsList.add(tmp);
+            cursor.moveToNext();
+        }
+        return doctorsList;
+    }
+
+    public Cursor getAllPendingDoctors(){
+        AppDataBase=getReadableDatabase();
+        //Cursor[] data=new Cursor[2];
+        //getting Doctor data
+        Cursor data=AppDataBase.rawQuery("select doctor.username,doctors.specialization ,doctors.starting_hours,doctors.starting_hours,doctors.closing_hours,doctors.city from doctors where users.MembershipType = 2 AND  doctors.doctorEmail ", null);
+        if (data!=null){
+            data.moveToFirst();
+        }
+
+        AppDataBase.close();
+
+        return data;
+    }
+    @SuppressLint("Recycle")
+    public void refuseDoctor(String email){
+        AppDataBase= getWritableDatabase();
+        AppDataBase.delete("doctors","doctorEmail = ?",new String[] {email});
+
+        AppDataBase.close();
+    }
+    @SuppressLint("Recycle")
+    public void acceptDoctor(String email){
+        AppDataBase= getWritableDatabase();
+        AppDataBase.execSQL("update doctors set MembershipType = 1 where email =?",new String[] {email});
+        AppDataBase.close();
     }
 }

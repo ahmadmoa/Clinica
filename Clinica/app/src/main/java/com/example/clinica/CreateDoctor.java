@@ -123,16 +123,16 @@ public class CreateDoctor extends AppCompatActivity {
 
     public Boolean validateAge () {
         String val = age.getEditText().getText().toString();
-        //String agePattern = "[0-100]";
+        String agePattern = "[0-100]";
 
         if (val.isEmpty()) {
             age.setError("Field cannot be empty");
             return false;
         }
-        // else if(!val.matches(agePattern)){
-        //   age.setError("Invalid age");
-        //   return false;
-        // }
+        else if(!val.matches(agePattern)){
+           age.setError("Invalid age");
+          return false;
+         }
         else {
             age.setError(null);
             return true;
@@ -172,9 +172,29 @@ public class CreateDoctor extends AppCompatActivity {
         String City=city.getSelectedItem().toString();
         String Workplace=workplace.getEditText().getText().toString();
 
-        DataBaseObject.addDoctor(Name,email,Password,Age,Mobile,gender,Integer.parseInt(Fees),fromTimeDate,toTimeDate,Integer.parseInt(Slot),Workplace,Special,City);
-        Intent intent=new Intent(getApplicationContext(),DoctorHome.class);
-        startActivity(intent);
+        DataBaseObject.addDoctor(Name,email,Password,Age,Mobile,gender,Integer.parseInt(Fees),fromTimeDate,toTimeDate,Integer.parseInt(Slot),Workplace,Special,City,2);
+       // Intent intent=new Intent(getApplicationContext(),DoctorHome.class);
+        //startActivity(intent);
+        openDialog();
+        fromTime.setSelection(0);
+        special.setSelection(0);
+        toTime.setSelection(0);
+        slot.setSelection(0);
+        username.getEditText().getText().clear();
+        fees.getEditText().getText().clear();
+        Email.getEditText().getText().clear();
+        mobile_Number.getEditText().getText().clear();
+        password.getEditText().getText().clear();
+        workplace.getEditText().getText().clear();
+        repassword.getEditText().getText().clear();
+        age.getEditText().getText().clear();
+        male.setChecked(false);
+        female.setChecked(false);
+
     }
 
+    public void openDialog(){
+        PopUpmessage dialog =new PopUpmessage("Registration Done","You are pending now until the Admin Approve your request","Home",getApplicationContext());
+        dialog.show(getSupportFragmentManager(),"Ahmad");
+    }
 }

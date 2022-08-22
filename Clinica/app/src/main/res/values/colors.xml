@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="button">#3A6A91</color>
     <color name="colorTextPrimary">#36A8F4</color>
+    <color name="AdminHomeColor">#27272D</color>
+    <color name="AdminNavColor">#232323</color>
 </resources>
